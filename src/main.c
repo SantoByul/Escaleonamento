@@ -1,15 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "teste.h"
+#include <time.h>
+
+#include "rate.h"
+#include "early.h"
 
 int main(){
-    int val;
 
-    scanf("%d",&val);
+    #ifdef RATE
+        printf("Eita q devia ser Rate\n");
+        return 0;
+    #endif
 
-    int pog = process(val);
+    #ifdef EARLY
+        printf("Eita q devia ser Early\n");
+        return 0;
+    #endif
 
-    printf("%d ",pog);
-
-    return 0;
+    printf("Modo Invalido\n");
+    return 1;
 }

@@ -1,15 +1,15 @@
 CC = gcc
 CFLAGS = -Iinclude
-SRC = src/main.c src/teste.c
+SRC = src/main.c
+RATE_SRC = src/rate.c
+EARLY_SRC = src/early.c
 TARGET = main
-
-all: $(TARGET)
-
-$(TARGET):
-	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
 
 clean:
 	rm -f $(TARGET)
 
 rate:
-	//por enquanto nada mas e obrigatorio//
+	$(CC) $(CFLAGS) -DRATE $(SRC) $(RATE_SRC) -o $(TARGET)
+edf:
+	$(CC) $(CFLAGS) -DEARLY $(SRC) $(EARLY_SRC) -o $(TARGET)
+
