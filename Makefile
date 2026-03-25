@@ -3,13 +3,12 @@ CFLAGS = -Iinclude
 SRC = src/main.c
 RATE_SRC = src/rate.c
 EARLY_SRC = src/early.c
-TARGET = main
+TARGET = main rate edf input
 
 clean:
 	rm -f $(TARGET)
-
 rate:
-	$(CC) $(CFLAGS) -DRATE $(SRC) $(RATE_SRC) -o $(TARGET)
+	$(CC) $(CFLAGS) -DRATE $(SRC) $(RATE_SRC) -o rate
 edf:
-	$(CC) $(CFLAGS) -DEARLY $(SRC) $(EARLY_SRC) -o $(TARGET)
+	$(CC) $(CFLAGS) -DEARLY $(SRC) $(EARLY_SRC) -o edf
 

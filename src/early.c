@@ -1,3 +1,3 @@
-void early(){
+void early(FILE *input){
     
 }

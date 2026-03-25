@@ -1,3 +1,3 @@
-void rate(){
+void rate(FILE *input){
     
 }
