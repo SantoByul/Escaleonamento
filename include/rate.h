@@ -5,6 +5,6 @@ typedef struct infoR{
     int cap,per;
 } infoR;
 
-char rate(FILE *input, infoR inf);
+void rate(FILE *input, infoR inf);
 
 #endif

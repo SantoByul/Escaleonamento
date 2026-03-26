@@ -7,12 +7,16 @@
 
 int main(){
     bool exec = false;
-    FILE *input = fopen("input.txt","w");
+    FILE *input = fopen("input.txt","a");
+    int time,cont;
     infoR r;
     infoE e;
 
+    #if defined(RATE) || defined(EARLY)
+        fscanf(input,"%d",&time);
+    #endif
+    
     #ifdef RATE
-        FILE *output = fopen("rate_dsob.out","w");
         rate(input,r);
         exec = true;
     #endif
@@ -26,7 +30,6 @@ int main(){
     if(exec==true){
         fclose(input);
         printf("Foi Bonitin todo\n");
-        fclose(output);
         return 0;
     }
     else{
