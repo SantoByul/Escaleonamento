@@ -7,22 +7,27 @@
 
 int main(){
     bool exec = false;
-    FILE *input = fopen("input.txt","w+");
-    int c, p;
+    FILE *input = fopen("input.txt","w");
+    infoR r;
+    infoE e;
 
     #ifdef RATE
-        rate(input);
+        FILE *output = fopen("rate_dsob.out","w");
+        rate(input,r);
         exec = true;
     #endif
 
     #ifdef EARLY
-        printf("Eita q devia ser Early\n");
+        FILE *output = fopen("edf_dsob.out","w");
+        early(input,e);
         exec = true;
     #endif
 
     if(exec==true){
-        printf("Foi Bonitin todo\n");
         fclose(input);
+        printf("Foi Bonitin todo\n");
+        fclose(output);
+        return 0;
     }
     else{
         printf("Modo Invalido\n");

@@ -1,10 +1,10 @@
-#ifdef EARLY_H
+#ifndef EARLY_H
 #define EARLY_H
 
-void early(FILE *input);
+char early(FILE *input);
 
-typedef struct info{
+typedef struct infoE{
     int cap,per,dead;
-} info;
+} infoE;
 
 #endif

@@ -1,10 +1,10 @@
-#ifdef RATE_H
+#ifndef RATE_H
 #define RATE_H
 
-void rate(FILE *input);
-
-typedef struct info{
+typedef struct infoR{
     int cap,per;
-} info;
+} infoR;
+
+char rate(FILE *input, infoR inf);
 
 #endif
