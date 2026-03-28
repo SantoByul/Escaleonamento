@@ -3,43 +3,31 @@
 #include <string.h>
 #include "rate.h"
 
-typedef struct {
-    char name[10];
-    int period;
-    int burst;
-    int remaining;
-    int next_release;
-    int deadline;
-    int lost;
-    int complete;
-    int killed;
-} Task;
-
 int compare(const void *a, const void *b) {
-    Task *t1 = (Task*)a;
-    Task *t2 = (Task*)b;
-    return t1->period - t2->period;
+    return ((Task*)a)->period - ((Task*)b)->period;
 }
 
 void rate(FILE *input, infoR inf) {
-    if (input == NULL) return;
-
+    if (!input) return;
     rewind(input);
 
-    int total_time;
+    int total_time, n = 0;
     if (fscanf(input, "%d", &total_time) != 1) return;
 
     Task tasks[100];
-    int n = 0;
+    memset(tasks, 0, sizeof(tasks));
 
-    while (n < 100 && fscanf(input, "%s %d %d", tasks[n].name, &tasks[n].period, &tasks[n].burst) == 3) {
-        tasks[n].remaining = 0;
-        tasks[n].next_release = 0;
-        tasks[n].deadline = 0;
-        tasks[n].lost = 0;
-        tasks[n].complete = 0;
-        tasks[n].killed = 0;
-        n++;
+    while (n < 100) {
+        char temp_name[10];
+        int p, b;
+        if (fscanf(input, "%s %d %d", temp_name, &p, &b) != 3) break;
+
+        if (p <= inf.per) {
+            strcpy(tasks[n].name, temp_name);
+            tasks[n].period = p;
+            tasks[n].burst = b;
+            n++;
+        }
     }
 
     qsort(tasks, n, sizeof(Task), compare);
@@ -48,13 +36,13 @@ void rate(FILE *input, infoR inf) {
     if (!output) return;
 
     fprintf(output, "EXECUTION BY RATE\n");
-    fprintf(output,"\n");
+    fprintf(output, "\n");
 
-    int time = 0;
-    int last_chosen = -1;
-    int current_exec_duration = 0;
+    int time = 0, last_chosen = -1, duration = 0;
 
     while (time < total_time) {
+        int chosen = -1;
+
         for (int i = 0; i < n; i++) {
             if (time == tasks[i].next_release) {
                 if (tasks[i].remaining > 0) {
@@ -67,7 +55,6 @@ void rate(FILE *input, infoR inf) {
             }
         }
 
-        int chosen = -1;
         for (int i = 0; i < n; i++) {
             if (tasks[i].remaining > 0) {
                 chosen = i;
@@ -75,55 +62,47 @@ void rate(FILE *input, infoR inf) {
             }
         }
 
-        if (chosen != last_chosen && last_chosen != -1) {
-            if (tasks[last_chosen].remaining == 0) {
-                fprintf(output, "[%s] for %d units - F\n", tasks[last_chosen].name, current_exec_duration);
-            } else {
-                fprintf(output, "[%s] for %d units - H\n", tasks[last_chosen].name, current_exec_duration);
+        if (chosen != last_chosen || duration >= inf.cap) {
+            if (last_chosen != -1) {
+                fprintf(output, "[%s] for %d units - %c\n", tasks[last_chosen].name, duration, tasks[last_chosen].remaining == 0 ? 'F' : 'H');
+            } else if (time > 0 && duration > 0) {
+                fprintf(output, "idle for %d units\n", duration);
             }
-            current_exec_duration = 0;
+            duration = 0;
         }
 
-        if (chosen == -1) {
-            fprintf(output, "idle for 1 units\n");
-            time++;
+        if (chosen != -1) {
+            tasks[chosen].remaining--;
+            if (tasks[chosen].remaining == 0) {
+                tasks[chosen].complete++;
+            } else if (time + 1 >= tasks[chosen].deadline) {
+                tasks[chosen].lost++;
+                tasks[chosen].killed++;
+                tasks[chosen].remaining = 0;
+            }
+            last_chosen = chosen;
+        } else {
             last_chosen = -1;
-            continue;
         }
 
-        tasks[chosen].remaining--;
+        duration++;
         time++;
-        current_exec_duration++;
-        
-        if (tasks[chosen].remaining == 0) {
-            tasks[chosen].complete++;
-        } else if (time >= tasks[chosen].deadline) {
-            tasks[chosen].lost++;
-            tasks[chosen].killed++;
-            tasks[chosen].remaining = 0;
-        }
-
-        last_chosen = chosen;
     }
 
     if (last_chosen != -1) {
-        if (tasks[last_chosen].remaining == 0) {
-            fprintf(output, "[%s] for %d units - F\n", tasks[last_chosen].name, current_exec_duration);
-        } else {
-            fprintf(output, "[%s] for %d units - H\n", tasks[last_chosen].name, current_exec_duration);
-        }
+        fprintf(output, "[%s] for %d units - %c\n", tasks[last_chosen].name, duration, tasks[last_chosen].remaining == 0 ? 'F' : 'H');
     }
 
     fprintf(output, "\nLOST DEADLINES\n");
-    fprintf(output,"\n");
+    fprintf(output, "\n");
     for (int i = 0; i < n; i++) fprintf(output, "[%s] %d\n", tasks[i].name, tasks[i].lost);
 
     fprintf(output, "\nCOMPLETE EXECUTION\n");
-    fprintf(output,"\n");
+    fprintf(output, "\n");
     for (int i = 0; i < n; i++) fprintf(output, "[%s] %d\n", tasks[i].name, tasks[i].complete);
 
     fprintf(output, "\nKILLED\n");
-    fprintf(output,"\n");
+    fprintf(output, "\n");
     for (int i = 0; i < n; i++) fprintf(output, "[%s] %d\n", tasks[i].name, tasks[i].killed);
 
     fclose(output);
