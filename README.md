@@ -1,21 +1,25 @@
-# Escaleonamento Em Tempo Real
+# Escalonamento Em Tempo Real
 Implementado em Windows via VS Code Com emulação de WSL
 
 # Arquivos:
 
-main.c: Onde converge todas as funções e o processo inteiro se basea
+main.c: Ponto de entrada do programa onde a lógica principal é coordenada.
 
-rate.c, rate.h: Onde todos os processos do escaleonamento rate ocorrem
+rate.c / rate.h: Implementacao dos processos do escalonamento rate
 
-early.c, early.h: Onde todos os processos do escaleonamento early_deadline ocorrem
+early.c / early.h: Implementacao dos processos do escalonamento early_deadline
 
 # Compilação:
 
-Escaleonamento rate-motonic.
+Escalonamento para ambas.
+
+    make all
+
+Escalonamento rate-motonic.
     
     make rate 
 
-Escaleonamento earliest-deadline-first.
+Escalonamento earliest-deadline-first.
 
     make edf
 

@@ -1,0 +1,100 @@
+EXECUTION BY EDF
+
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 2 units - F
+idle for 2 units
+[T2] for 2 units - F
+[T3] for 2 units - F
+[T2] for 1 units - H
+
+LOST DEADLINES
+
+[T2] 0
+[T3] 0
+
+COMPLETE EXECUTION
+
+[T2] 41
+[T3] 21
+
+KILLED
+
+[T2] 0
+[T3] 0
