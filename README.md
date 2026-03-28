@@ -1,5 +1,5 @@
 # Escaleonamento Em Tempo Real
-Implementado em Windows via VS Code Com emulação de WSL via Ubuntu
+Implementado em Windows via VS Code Com emulação de WSL
 
 # Arquivos:
 
