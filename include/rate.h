@@ -7,7 +7,14 @@ typedef struct infoR{
 
 typedef struct {
     char name[10];
-    int period, burst, remaining, next_release, deadline, lost, complete, killed;
+    int period;
+    int burst;
+    int remaining;
+    int next_release;
+    int deadline;
+    int lost;
+    int complete;
+    int killed;
 } Task;
 
 void rate(FILE *input, infoR inf);
